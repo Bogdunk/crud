@@ -23,7 +23,54 @@
 
     <!--    todo @bogdan de revenit https://www.youtube.com/watch?v=siwoaqAhv3g  14:17-->
     <div class="container">
-        <a href="add_new.php" class="btn btn-dark">Add New</a>
+       <?php
+       if( isset($_GET['msg']) ){
+           $msg = $_GET['msg'];
+           echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+              ' . $msg . '
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+       }
+       ?>
+        <a href="add_new.php" class="btn btn-dark mb-3">Add New</a>
+
+        <table class="table table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    include "db_conn.php";
+
+                    $sql = "SELECT * FROM `crud`";
+                    if (!isset($conn)) die('Eroare la conectare la DB');
+
+                    $result = mysqli_query($conn, $sql);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <tr>
+                            <td><?php echo $row['id'] ?></td>
+                            <td><?php echo $row['first_name'] ?></td>
+                            <td><?php echo $row['last_name'] ?></td>
+                            <td><?php echo $row['email'] ?></td>
+                            <td><?php echo $row['gender'] ?></td>
+                            <td>
+                                <a href="edit.php?id=<?php echo $row['id'] ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
+                                <a href="delete.php?id=<?php echo $row['id'] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                ?>
+            </tbody>
+        </table>
     </div>
 
 <!-- Bootstrap -->
