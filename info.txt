@@ -1,0 +1,2 @@
+tutorial urmarit: https://www.youtube.com/watch?v=siwoaqAhv3g
+am folosit xamp pe partea de server, si db phpmyadmin
